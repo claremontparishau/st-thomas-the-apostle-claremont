@@ -45,7 +45,8 @@ function updateBulletinItem(index, { date, title, link }, itemNumber) {
   titleElement.textContent = title;
 
   // Update the "Read More" button link
-  const readMoreButton = document.querySelector(`#bulletin-title-${itemNumber} + .item-footer a`);
+  const itemWrapper = document.querySelector(`#bulletin-title-${itemNumber}`).closest('.item-wrapper');
+  const readMoreButton = itemWrapper.querySelector('.item-footer a');
   readMoreButton.setAttribute('href', link);
 }
 
