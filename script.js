@@ -21,13 +21,13 @@ function extractBulletinItems(data) {
   const doc = parser.parseFromString(data, 'text/html');
 
   // Get all the bulletin item elements
-  const itemElements = doc.querySelectorAll('.item');
+  const itemElements = doc.querySelectorAll('.item.features-image');
 
   // Extract the bulletin data from each item
   const bulletinItems = [];
-  itemElements.forEach((item, index) => {
-    const date = item.querySelector('.item-title').textContent;
-    const title = item.querySelector('.item-subtitle').textContent;
+  itemElements.forEach(item => {
+    const date = item.querySelector('.item-content .item-title').textContent;
+    const title = item.querySelector('.item-content .item-subtitle').textContent;
     const link = item.querySelector('.item-footer a').getAttribute('href');
 
     bulletinItems.push({ date, title, link });
@@ -59,16 +59,22 @@ function shiftBulletinItems(bulletinItems) {
     const thirdItem = bulletinItems[2];
 
     // Update the second item with the data of the third item
-    updateBulletinItem(1, thirdItem, '2');
+    if (secondItem) {
+      updateBulletinItem(1, thirdItem, '2');
+    }
 
     // Remove the third item from the page
-    const thirdItemElement = document.querySelector('.item:nth-child(3)');
-    thirdItemElement.parentNode.removeChild(thirdItemElement);
+    const thirdItemElement = document.querySelector('.item.features-image:nth-child(3)');
+    if (thirdItemElement) {
+      thirdItemElement.remove();
+    }
 
     // Push the old second item to the third position
     const newItemElement = createBulletinItemElement(secondItem, '3');
     const rowElement = document.querySelector('.row');
-    rowElement.appendChild(newItemElement);
+    if (rowElement && newItemElement) {
+      rowElement.appendChild(newItemElement);
+    }
   }
 }
 
