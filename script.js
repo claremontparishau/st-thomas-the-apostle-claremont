@@ -40,14 +40,11 @@ function extractBulletinItems(data) {
 function updateBulletinItem(index, { date, title, link }, itemNumber) {
   const dateElement = document.getElementById(`bulletin-date-${itemNumber}`);
   const titleElement = document.getElementById(`bulletin-title-${itemNumber}`);
+  const linkElement = document.querySelector(`#bulletin-title-${itemNumber} + .item-footer a`);
 
   dateElement.textContent = date;
   titleElement.textContent = title;
-
-  // Update the "Read More" button link
-  const itemWrapper = document.querySelector(`#bulletin-title-${itemNumber}`).closest('.item-wrapper');
-  const readMoreButton = itemWrapper.querySelector('.item-footer a');
-  readMoreButton.setAttribute('href', link);
+  linkElement.setAttribute('href', link);
 }
 
 // Function to shift the bulletin items
