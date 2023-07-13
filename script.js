@@ -1,13 +1,11 @@
 async function fetchLatestBulletins() {
-  const response = await fetch('/bulletin/');
-  const html = await response.text();
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(html, 'text/html');
-  const links = Array.from(doc.querySelectorAll('a')).filter((link) => link.href.endsWith('.pdf')).slice(0, 3);
+  const response = await fetch('/bulletin-manifest.json');
+  const manifest = await response.json();
+  const bulletins = manifest.slice(0, 3);
 
-  return links.map((link) => {
-    const title = link.textContent;
-    const href = link.href;
+  return bulletins.map(({ name, url }) => {
+    const title = name.replace('.pdf', '');
+    const href = url;
     return { title, href };
   });
 }
