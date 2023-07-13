@@ -1,4 +1,4 @@
 /bulletin/*
-  Content-Type: text/html
-  X-Content-Type-Options: nosniff
-  Indexes
+  content-type: text/html
+  x-content-type-options: nosniff
+  x-directory-index: index.html
