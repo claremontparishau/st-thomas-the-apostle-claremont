@@ -30,3 +30,8 @@ function updateBulletinElements(latestBulletins) {
     readMoreBtn.href = bulletin.href;
   });
 }
+
+
+(async function () {
+  const latestBulletins = await fetchLatestBulletins();
+  updateBulletinElements(latestBulletins);
