@@ -19,7 +19,7 @@ function updateBulletinElements(latestBulletins) {
     const ordinary = parts[2];
     const year = parts[3];
 
-    return `${sunday} Sunday Ordinary Year ${ordinary}`;
+    return `${sunday} Sunday Ordinary Year ${ordinary} ${year}`;
   };
 
   latestBulletins.forEach((bulletin, index) => {
@@ -27,7 +27,7 @@ function updateBulletinElements(latestBulletins) {
     const itemSubtitle = bulletinElements[index].querySelector('.item-subtitle');
     const readMoreBtn = bulletinElements[index].querySelector('.item-footer a');
 
-    const formattedTitle = getFormattedTitle(bulletin.title);
+    const formattedTitle = getFormattedTitle(bulletin.title.replace('.pdf', ''));
     itemTitle.innerHTML = `<em>${formattedTitle}</em>`;
     itemSubtitle.textContent = ''; // Remove the subtitle
     readMoreBtn.href = bulletin.href;
