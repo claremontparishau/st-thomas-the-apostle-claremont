@@ -16,10 +16,9 @@ function updateBulletinElements(latestBulletins) {
   const getFormattedTitle = (title) => {
     const parts = title.split('-');
     const sunday = parts[0];
-    const ordinary = parts[2];
-    const year = parts[3];
+    const year = parts[4];
 
-    return `${sunday} Sunday Ordinary Year ${ordinary} ${year}`;
+    return `${sunday} Sunday Ordinary Year ${year}`;
   };
 
   latestBulletins.forEach((bulletin, index) => {
@@ -33,6 +32,7 @@ function updateBulletinElements(latestBulletins) {
     readMoreBtn.href = bulletin.href;
   });
 }
+
 
 
 (async function () {
