@@ -16,21 +16,30 @@ function updateBulletinElements(latestBulletins) {
   const getFormattedTitle = (title) => {
     const parts = title.split('-');
     const sunday = parts[0];
-    const year = parts[5];
+    const year = parts[8];
 
-    return `${sunday}th Sunday Ordinary Year ${year}`;
+    return `${sunday} Sunday Ordinary Year ${year}`;
   };
 
   const getFormattedDate = (title) => {
     const parts = title.split('-');
-    const day1 = parts[6];
-    const day2 = parts[7];
-    const month = parts[8];
-    const year = parts[9];
+    const month1 = parts[2];
+    const month2 = parts[3];
+    const startDay = parts[4];
+    const endDay = parts[5];
+    const year = parts[8];
 
-    const monthIndex = parseInt(month) - 1;
-    const monthName = monthNames[monthIndex];
-    return `${day1}-${day2}, ${monthName} ${year}`;
+    let monthName;
+    if (month1 && month2) {
+      const monthIndex = parseInt(month1) - 1;
+      monthName = monthNames[monthIndex];
+    } else {
+      monthName = "";
+    }
+
+    const dayStr = startDay ? (endDay ? `${startDay}-${endDay}` : startDay) : "";
+    const formattedDay = dayStr.padStart(2, '0');
+    return `${formattedDay}, ${monthName} ${year}`;
   };
 
   const monthNames = [
@@ -45,11 +54,16 @@ function updateBulletinElements(latestBulletins) {
 
     const formattedTitle = getFormattedTitle(bulletin.title.replace('.pdf', ''));
     const formattedDate = getFormattedDate(bulletin.title.replace('.pdf', ''));
-    itemTitle.innerHTML = `<strong>${formattedTitle}</strong>`;
-    itemSubtitle.textContent = formattedDate;
+    itemTitle.innerHTML = formattedTitle;
+    itemSubtitle.innerHTML = `<em>${formattedDate}</em>`;
     readMoreBtn.href = bulletin.href;
   });
 }
+
+(async function () {
+  const latestBulletins = await fetchLatestBulletins();
+  updateBulletinElements(latestBulletins);
+})();
 
 (async function () {
   const latestBulletins = await fetchLatestBulletins();
