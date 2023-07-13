@@ -3,42 +3,37 @@ async function fetchLatestBulletins() {
   const manifest = await response.json();
   const bulletins = manifest.slice(0, 3);
 
-  const monthNames = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
-
   return bulletins.map(({ name, url }) => {
-    const match = name.match(/^(\d{1,2})(st|nd|rd|th)?-(\w+)?-?(\w+)?-?(\d{4})/);
-    if (!match) {
-      console.error(`Invalid file name format: ${name}`);
-      return null;
-    }
-    const [_, dayStr, daySuffix, monthStr, sunday, yearStr] = match;
-    const monthIndex = monthNames.findIndex(name => name.startsWith(monthStr));
-    const monthName = monthNames[monthIndex];
-    const dayNum = parseInt(dayStr);
-    const yearNum = parseInt(yearStr);
-    const yearShort = yearNum.toString().slice(-2);
-    const title = `${dayNum}${daySuffix ? daySuffix : ''} ${monthName} ${sunday ? sunday + ' ' : ''}Ordinary Year A`;
+    const title = name.replace('.pdf', '');
     const href = url;
     return { title, href };
-  }).filter(bulletin => bulletin != null);
+  });
 }
 
 function updateBulletinElements(latestBulletins) {
   const bulletinElements = document.querySelectorAll('.item.features-image');
+
+  const getFormattedTitle = (title) => {
+    const parts = title.split('-');
+    const sunday = parts[0];
+    const ordinary = parts[2];
+    const year = parts[3];
+
+    return `${sunday} Sunday Ordinary Year ${ordinary}`;
+  };
 
   latestBulletins.forEach((bulletin, index) => {
     const itemTitle = bulletinElements[index].querySelector('.item-title');
     const itemSubtitle = bulletinElements[index].querySelector('.item-subtitle');
     const readMoreBtn = bulletinElements[index].querySelector('.item-footer a');
 
-    itemTitle.innerHTML = `<em>${bulletin.title}</em>`;
+    const formattedTitle = getFormattedTitle(bulletin.title);
+    itemTitle.innerHTML = `<em>${formattedTitle}</em>`;
     itemSubtitle.textContent = ''; // Remove the subtitle
     readMoreBtn.href = bulletin.href;
   });
 }
+
 
 (async function () {
   const latestBulletins = await fetchLatestBulletins();
