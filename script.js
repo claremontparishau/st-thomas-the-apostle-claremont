@@ -1,7 +1,7 @@
 async function fetchLatestBulletins() {
   const response = await fetch('/bulletin-manifest.json');
   const manifest = await response.json();
-  const bulletins = manifest.slice(0, 3);
+  const bulletins = manifest.slice(-3); // Take the last 3 items
 
   return bulletins.map(({ name, url }) => {
     const title = name.replace('.pdf', '');
