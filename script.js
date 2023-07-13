@@ -4,8 +4,8 @@ async function fetchLatestBulletins() {
   const bulletins = manifest.slice(0, 3);
 
   return bulletins.map(({ name, url }) => {
-    const dateStr = name.match(/(\d{4}-\d{2}-\d{2})/)[1];
-    const titleStr = name.replace(/(\.pdf)$/i, '').replace(/-/g, ' ').replace(/\d{4}-\d{2}-\d{2}/, '').trim();
+    const dateStr = name.match(/(\d{2}-\d{2}-\d{4})/)[1];
+    const titleStr = name.replace(/(\.pdf)$/i, '').replace(/-/g, ' ').replace(/\d{2}-\d{2}-\d{4}/, '').trim();
     const formattedDate = getFormattedDate(dateStr);
     const formattedTitle = getFormattedTitle(titleStr);
     const title = `${formattedTitle} - ${formattedDate}`;
