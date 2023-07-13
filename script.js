@@ -16,17 +16,17 @@ function updateBulletinElements(latestBulletins) {
   const getFormattedTitle = (title) => {
     const parts = title.split('-');
     const sunday = parts[0];
-    const year = parts[4];
+    const year = parts[5];
 
-    return `${sunday} Sunday Ordinary Year ${year}`;
+    return `${sunday}th Sunday Ordinary Year ${year}`;
   };
 
   const getFormattedDate = (title) => {
     const parts = title.split('-');
-    const month = parts[3];
     const day1 = parts[6];
     const day2 = parts[7];
-    const year = parts[8];
+    const month = parts[8];
+    const year = parts[9];
 
     const monthIndex = parseInt(month) - 1;
     const monthName = monthNames[monthIndex];
@@ -45,7 +45,7 @@ function updateBulletinElements(latestBulletins) {
 
     const formattedTitle = getFormattedTitle(bulletin.title.replace('.pdf', ''));
     const formattedDate = getFormattedDate(bulletin.title.replace('.pdf', ''));
-    itemTitle.innerHTML = `<em>${formattedTitle}</em>`;
+    itemTitle.innerHTML = `<strong>${formattedTitle}</strong>`;
     itemSubtitle.textContent = formattedDate;
     readMoreBtn.href = bulletin.href;
   });
