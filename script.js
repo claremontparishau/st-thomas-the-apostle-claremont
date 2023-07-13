@@ -3,11 +3,35 @@ async function fetchLatestBulletins() {
   const manifest = await response.json();
   const bulletins = manifest.slice(0, 3);
 
+  const monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+
   return bulletins.map(({ name, url }) => {
-    const title = name.replace('.pdf', '');
+    const [_, monthStr, dayStr, yearStr] = name.match(/^(\d{1,2})-(\w+)-(\d{4})/);
+    const monthIndex = monthNames.findIndex(name => name.startsWith(monthStr));
+    const monthName = monthNames[monthIndex];
+    const dayNum = parseInt(dayStr);
+    const daySuffix = getDaySuffix(dayNum);
+    const yearNum = parseInt(yearStr);
+    const yearShort = yearNum.toString().slice(-2);
+    const title = `${dayNum}${daySuffix} ${monthName} Ordinary Year A`;
     const href = url;
     return { title, href };
   });
+}
+
+function getDaySuffix(dayNum) {
+  if (dayNum >= 11 && dayNum <= 13) {
+    return 'th';
+  }
+  switch (dayNum % 10) {
+    case 1: return 'st';
+    case 2: return 'nd';
+    case 3: return 'rd';
+    default: return 'th';
+  }
 }
 
 function updateBulletinElements(latestBulletins) {
