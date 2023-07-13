@@ -1,9 +1,9 @@
-async function fetchBulletinFiles() {
+async function fetchLatestBulletins() {
   const response = await fetch('/bulletin/');
   const html = await response.text();
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
-  const links = Array.from(doc.querySelectorAll('.js-navigation-open')).filter((link) => link.href.endsWith('.pdf'));
+  const links = Array.from(doc.querySelectorAll('a')).filter((link) => link.href.endsWith('.pdf')).slice(0, 3);
 
   return links.map((link) => {
     const title = link.textContent;
@@ -12,16 +12,21 @@ async function fetchBulletinFiles() {
   });
 }
 
-function generateBulletinList(bulletinFiles) {
-  const listItems = bulletinFiles.map((file) => `<li><a href="${file.href}" target="_blank">${file.title}</a></li>`);
-  const listHTML = `<ul>${listItems.join('')}</ul>`;
-  return listHTML;
+function updateBulletinElements(latestBulletins) {
+  const bulletinElements = document.querySelectorAll('.item.features-image');
+
+  latestBulletins.forEach((bulletin, index) => {
+    const itemTitle = bulletinElements[index].querySelector('.item-title');
+    const itemSubtitle = bulletinElements[index].querySelector('.item-subtitle');
+    const readMoreBtn = bulletinElements[index].querySelector('.item-footer a');
+
+    itemTitle.innerHTML = `<em>${bulletin.title}</em>`;
+    itemSubtitle.textContent = ''; // Remove the subtitle
+    readMoreBtn.href = bulletin.href;
+  });
 }
 
 (async function () {
-  const bulletinFiles = await fetchBulletinFiles();
-  const bulletinListHTML = generateBulletinList(bulletinFiles);
-  // Insert the bulletin list HTML into the page
-  const bulletinListContainer = document.querySelector('.bulletin-list');
-  bulletinListContainer.innerHTML = bulletinListHTML;
+  const latestBulletins = await fetchLatestBulletins();
+  updateBulletinElements(latestBulletins);
 })();
