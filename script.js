@@ -1,47 +1,32 @@
-// Fetch the latest bulletin data from the /bulletin/ directory
-fetch('/bulletin/')
-  .then(response => response.text())
-  .then(data => {
-    // Extract the bulletin items from the fetched data
-    const bulletinItems = extractBulletinItems(data);
-
-    // Update the bulletin items with the extracted data
-    bulletinItems.forEach((item, index) => {
-      const itemNumber = index + 1;
-      updateBulletinItem(index, item, itemNumber);
-    });
-  })
-  .catch(error => {
-    console.error('Error fetching bulletin data:', error);
-  });
-
-// Function to extract bulletin items from the fetched data
-function extractBulletinItems(data) {
+async function fetchLatestBulletins() {
+  const response = await fetch('/bulletin/');
+  const html = await response.text();
   const parser = new DOMParser();
-  const doc = parser.parseFromString(data, 'text/html');
+  const doc = parser.parseFromString(html, 'text/html');
+  const links = Array.from(doc.querySelectorAll('a')).filter((link) => link.href.endsWith('.pdf')).slice(0, 3);
 
-  // Get all the bulletin item elements
-  const itemElements = doc.querySelectorAll('.item.features-image');
-
-  // Extract the bulletin data from each item
-  const bulletinItems = Array.from(itemElements).map((item, index) => {
-    const date = item.querySelector('.item-content .item-title').textContent;
-    const title = item.querySelector('.item-content .item-subtitle').textContent;
-    const link = item.querySelector('.item-footer a').getAttribute('href');
-
-    return { date, title, link };
+  return links.map((link) => {
+    const title = link.textContent;
+    const href = link.href;
+    return { title, href };
   });
-
-  return bulletinItems;
 }
 
-// Function to update a bulletin item with new data
-function updateBulletinItem(index, { date, title, link }, itemNumber) {
-  const dateElement = document.getElementById(`bulletin-date-${itemNumber}`);
-  const titleElement = document.getElementById(`bulletin-title-${itemNumber}`);
-  const linkElement = document.querySelector(`#bulletin-title-${itemNumber} + .item-footer a`);
+function updateBulletinElements(latestBulletins) {
+  const bulletinElements = document.querySelectorAll('.item.features-image');
 
-  dateElement.textContent = date;
-  titleElement.textContent = title;
-  linkElement.setAttribute('href', link);
+  latestBulletins.forEach((bulletin, index) => {
+    const itemTitle = bulletinElements[index].querySelector('.item-title');
+    const itemSubtitle = bulletinElements[index].querySelector('.item-subtitle');
+    const readMoreBtn = bulletinElements[index].querySelector('.item-footer a');
+
+    itemTitle.innerHTML = `<em>${bulletin.title}</em>`;
+    itemSubtitle.textContent = ''; // Remove the subtitle
+    readMoreBtn.href = bulletin.href;
+  });
 }
+
+(async function () {
+  const latestBulletins = await fetchLatestBulletins();
+  updateBulletinElements(latestBulletins);
+})();
