@@ -9,18 +9,18 @@ async function fetchLatestBulletins() {
   ];
 
   return bulletins.map(({ name, url }) => {
-    const match = name.match(/^(\d{1,2})(st|nd|rd|th)?-?(\w+)?-?(\d{4})/);
+    const match = name.match(/^(\d{1,2})(st|nd|rd|th)?-(\w+)?-?(\w+)?-?(\d{4})/);
     if (!match) {
       console.error(`Invalid file name format: ${name}`);
       return null;
     }
-    const [_, dayStr, daySuffix, monthStr, yearStr] = match;
+    const [_, dayStr, daySuffix, monthStr, sunday, yearStr] = match;
     const monthIndex = monthNames.findIndex(name => name.startsWith(monthStr));
     const monthName = monthNames[monthIndex];
     const dayNum = parseInt(dayStr);
     const yearNum = parseInt(yearStr);
     const yearShort = yearNum.toString().slice(-2);
-    const title = `${dayNum}${daySuffix ? daySuffix : ''} ${monthName} Ordinary Year A`;
+    const title = `${dayNum}${daySuffix ? daySuffix : ''} ${monthName} ${sunday ? sunday + ' ' : ''}Ordinary Year A`;
     const href = url;
     return { title, href };
   }).filter(bulletin => bulletin != null);
