@@ -4,11 +4,10 @@ async function fetchLatestBulletins() {
   const bulletins = manifest.slice(0, 3);
 
   return bulletins.map(({ name, url }) => {
-    const dateStr = name.match(/(\d{4}-\d{2}-\d{2})/)[1];
-    const titleStr = name.replace(/(\.pdf)$/i, '').replace(/-/g, ' ').replace(/\d{4}-\d{2}-\d{2}/, '').trim();
+    const dateStr = name.match(/(\d{1,2}-\w+-\d{4})/)[1];
     const formattedDate = getFormattedDate(dateStr);
-    const formattedTitle = getFormattedTitle(titleStr);
-    const title = `${formattedTitle} - ${formattedDate}`;
+    const titleStr = name.replace(/(\.pdf)$/i, '').replace(/-/g, ' ');
+    const title = `${titleStr} - ${formattedDate}`;
     const href = url;
     return { title, href };
   });
@@ -18,13 +17,13 @@ function updateBulletinElements(latestBulletins) {
   const bulletinElements = document.querySelectorAll('.item.features-image');
 
   latestBulletins.forEach((bulletin, index) => {
-    const itemTitle = bulletinElements[index].querySelector('.item-title');
-    const itemSubtitle = bulletinElements[index].querySelector('.item-subtitle');
-    const readMoreBtn = bulletinElements[index].querySelector('.item-footer a');
+    if (index < bulletinElements.length) {
+      const itemTitle = bulletinElements[index].querySelector('.item-title');
+      const readMoreBtn = bulletinElements[index].querySelector('.item-footer a');
 
-    itemTitle.innerHTML = `<em>${bulletin.title}</em>`;
-    itemSubtitle.textContent = ''; // Remove the subtitle
-    readMoreBtn.href = bulletin.href;
+      itemTitle.innerHTML = `<em>${bulletin.title}</em>`;
+      readMoreBtn.href = bulletin.href;
+    }
   });
 }
 
