@@ -1,5 +1,0 @@
-/bulletin/*
-  content-type: text/html
-  x-content-type-options: nosniff
-  x-directory-index: index.html
-  options: +indexes
