@@ -1,23 +1,12 @@
-async function fetchLatestBulletins() {
-  const response = await fetch('/bulletin-manifest.json');
-  const manifest = await response.json();
-  const bulletins = manifest.slice(0, 3);
-
-  return bulletins.map(({ name, url }) => {
-    const title = name.replace('.pdf', '');
-    const href = url;
-    return { title, href };
-  });
-}
-
 function updateBulletinElements(latestBulletins) {
   const bulletinElements = document.querySelectorAll('.item.features-image');
 
   const formatDate = (dateString) => {
     const [sunday, ordinary, month, days, year] = dateString.split('-');
-    const formattedMonth = new Date(Date.parse(`${month} 1, ${year}`)).toLocaleString('en-US', { month: 'long' });
+    const formattedMonth = new Date(`${month} 1, ${year}`).toLocaleString('en-US', { month: 'long' });
+    const formattedDays = parseInt(days) > 9 ? days : `0${days}`;
 
-    return `${formattedMonth} ${days}-${parseInt(days) + 1}, ${year}`;
+    return `${formattedMonth} ${formattedDays}-${parseInt(formattedDays) + 1}, ${year}`;
   };
 
   const getFormattedTitle = (title) => {
@@ -41,9 +30,3 @@ function updateBulletinElements(latestBulletins) {
     readMoreBtn.href = bulletin.href;
   });
 }
-
-
-(async function () {
-  const latestBulletins = await fetchLatestBulletins();
-  updateBulletinElements(latestBulletins);
-})();
