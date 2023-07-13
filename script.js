@@ -13,33 +13,16 @@ async function fetchLatestBulletins() {
 function updateBulletinElements(latestBulletins) {
   const bulletinElements = document.querySelectorAll('.item.features-image');
 
-  const getFormattedTitle = (title) => {
-    const parts = title.split('-');
-    const sunday = parts[0];
-    const year = parts[8];
+  const formatDate = (dateString) => {
+    const parts = dateString.split('-');
+    const day1 = parts[0];
+    const day2 = parts[1];
+    const month = parts[2];
+    const year = parts[3];
 
-    return `${sunday} Sunday Ordinary Year ${year}`;
-  };
-
-  const getFormattedDate = (title) => {
-    const parts = title.split('-');
-    const month1 = parts[2];
-    const month2 = parts[3];
-    const startDay = parts[4];
-    const endDay = parts[5];
-    const year = parts[8];
-
-    let monthName;
-    if (month1 && month2) {
-      const monthIndex = parseInt(month1) - 1;
-      monthName = monthNames[monthIndex];
-    } else {
-      monthName = "";
-    }
-
-    const dayStr = startDay ? (endDay ? `${startDay}-${endDay}` : startDay) : "";
-    const formattedDay = dayStr.padStart(2, '0');
-    return `${formattedDay}, ${monthName} ${year}`;
+    const monthIndex = parseInt(month) - 1;
+    const monthName = monthNames[monthIndex];
+    return `${day1}-${day2}, ${monthName} ${year}`;
   };
 
   const monthNames = [
@@ -48,22 +31,18 @@ function updateBulletinElements(latestBulletins) {
   ];
 
   latestBulletins.forEach((bulletin, index) => {
-    const itemTitle = bulletinElements[index].querySelector('.item-title');
-    const itemSubtitle = bulletinElements[index].querySelector('.item-subtitle');
+    const itemDate = bulletinElements[index].querySelector('.item-title');
+    const itemTitle = bulletinElements[index].querySelector('.item-subtitle');
     const readMoreBtn = bulletinElements[index].querySelector('.item-footer a');
 
-    const formattedTitle = getFormattedTitle(bulletin.title.replace('.pdf', ''));
-    const formattedDate = getFormattedDate(bulletin.title.replace('.pdf', ''));
-    itemTitle.innerHTML = formattedTitle;
-    itemSubtitle.innerHTML = `<em>${formattedDate}</em>`;
+    const formattedDate = formatDate(bulletin.title.replace('.pdf', ''));
+    const formattedTitle = bulletin.title.replace('.pdf', '');
+
+    itemDate.textContent = formattedDate;
+    itemTitle.innerHTML = `<em>${formattedTitle}</em>`;
     readMoreBtn.href = bulletin.href;
   });
 }
-
-(async function () {
-  const latestBulletins = await fetchLatestBulletins();
-  updateBulletinElements(latestBulletins);
-})();
 
 (async function () {
   const latestBulletins = await fetchLatestBulletins();
