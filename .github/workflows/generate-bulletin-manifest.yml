@@ -19,5 +19,7 @@ jobs:
           commit_message: Generate bulletin manifest
           commit_options: '--no-verify --signoff'
           branch: ${{ github.ref }}
-          commit_user_name: GitHub Actions
-          commit_user_email: actions@github.com
+          commit_user_name: jerekjoseph
+          commit_user_email: jerekjoseph@icloud.com
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
