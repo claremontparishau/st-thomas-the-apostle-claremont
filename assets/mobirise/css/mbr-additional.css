@@ -1105,15 +1105,15 @@ a {
   padding-bottom: 5rem;
   background-color: #fafafa;
 }
-.cid-tJLYZpYAJ3 {
+.cid-tJWYVStilH {
   padding-top: 6rem;
   padding-bottom: 6rem;
-  background-image: url("../../../assets/images/mbr-4-1920x1280.webp");
+  background-color: #ffffff;
 }
-.cid-tJLYZpYAJ3 .mbr-fallback-image.disabled {
+.cid-tJWYVStilH .mbr-fallback-image.disabled {
   display: none;
 }
-.cid-tJLYZpYAJ3 .mbr-fallback-image {
+.cid-tJWYVStilH .mbr-fallback-image {
   display: block;
   background-size: cover;
   background-position: center center;
@@ -1123,20 +1123,25 @@ a {
   top: 0;
 }
 @media (max-width: 991px) {
-  .cid-tJLYZpYAJ3 .image-wrapper {
+  .cid-tJWYVStilH .image-wrapper {
     margin-bottom: 1rem;
   }
 }
-.cid-tJLYZpYAJ3 .row {
+.cid-tJWYVStilH .row {
   flex-direction: row-reverse;
 }
-.cid-tJLYZpYAJ3 img {
+.cid-tJWYVStilH img {
   width: 100%;
 }
 @media (min-width: 992px) {
-  .cid-tJLYZpYAJ3 .text-wrapper {
+  .cid-tJWYVStilH .text-wrapper {
     padding: 2rem;
   }
+}
+.cid-tJX0mFTo7i {
+  padding-top: 3rem;
+  padding-bottom: 5rem;
+  background-color: #ffffff;
 }
 .cid-tJ0QnTuR2o {
   padding-top: 6rem;
@@ -1308,6 +1313,46 @@ a {
 .cid-tJ0LYQcPje .list {
   list-style-type: none;
   padding: 0;
+}
+.cid-tJX0krIcoT {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background-color: #ffffff;
+}
+.cid-tJX1Gm3vY7 {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background-color: #ffffff;
+}
+.cid-tJX1Gm3vY7 .mbr-fallback-image.disabled {
+  display: none;
+}
+.cid-tJX1Gm3vY7 .mbr-fallback-image {
+  display: block;
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+}
+.cid-tJX1Gm3vY7 ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 2.5rem;
+}
+.cid-tJX1Gm3vY7 li {
+  position: relative;
+  margin-bottom: 1rem;
+}
+.cid-tJX1Gm3vY7 ul li::before {
+  position: absolute;
+  left: -1.6rem;
+  content: "\2022";
+  color: #6592e6;
+  font-weight: bold;
+  font-size: 2rem;
+  width: 1.6rem;
 }
 .cid-sWCg68Z60Q {
   z-index: 1000;
@@ -3260,7 +3305,7 @@ a {
 .cid-tJ17MjElVk {
   padding-top: 6rem;
   padding-bottom: 6rem;
-  background-image: url("../../../assets/images/claremontrc8-567x379.webp");
+  background-image: url("../../../assets/images/screenshot-2023-07-04-130126-624x329.webp");
 }
 .cid-tJ17MjElVk .mbr-fallback-image.disabled {
   display: none;
