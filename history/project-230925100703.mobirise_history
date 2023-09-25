@@ -74,9 +74,8 @@
     "siteUrl": false,
     "cookiesAlert": false,
     "gdpr": false,
-    "publishType": "local",
-    "mbrsite": "mbrsite://%7B%22id%22%3A329021%2C%22domain%22%3A%22svj3e1b4vg.mobirisesite.com%22%7D",
-    "publishPath": "@PROJECT_PATH@"
+    "publishType": "mbrsite",
+    "mbrsite": "mbrsite://%7B%22id%22%3A329021%2C%22domain%22%3A%22svj3e1b4vg.mobirisesite.com%22%7D"
   },
   "pages": {
     "index.html": {
