@@ -67,13 +67,16 @@
     "publishChangesOnly": false,
     "usedWebp": true,
     "favicon": false,
-    "mbrsiteDomain": "svj3e1b4vg",
+    "mbrsiteDomain": "nghcu3bvyj",
     "robotsSwitcher": false,
     "sitemapSwitcher": false,
     "sitemapSwitcherAuto": false,
     "siteUrl": false,
     "cookiesAlert": false,
-    "gdpr": false
+    "gdpr": false,
+    "publishType": "local",
+    "mbrsite": "mbrsite://%7B%22id%22%3A329021%2C%22domain%22%3A%22svj3e1b4vg.mobirisesite.com%22%7D",
+    "publishPath": "@PROJECT_PATH@"
   },
   "pages": {
     "index.html": {
