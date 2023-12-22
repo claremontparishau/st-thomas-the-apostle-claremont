@@ -73,7 +73,9 @@
     "sitemapSwitcherAuto": false,
     "siteUrl": false,
     "cookiesAlert": false,
-    "gdpr": false
+    "gdpr": false,
+    "publishType": "local",
+    "publishPath": "file:///C:/Users/PaulP/OneDrive/Documents/GitHub"
   },
   "pages": {
     "index.html": {
