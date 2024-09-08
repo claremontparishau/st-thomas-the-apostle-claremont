@@ -62,7 +62,7 @@
     ],
     "imageResize": true,
     "uniqCompNum": 72,
-    "versionPublish": "5.9.18",
+    "versionPublish": "5.9.6",
     "screenshot": "screenshot.png",
     "publishChangesOnly": false,
     "usedWebp": true,
