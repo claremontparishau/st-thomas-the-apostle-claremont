@@ -718,6 +718,43 @@ a {
 .cid-tJ1d3SiJrg P {
   text-align: center;
 }
+.cid-vifOiYOawE {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  background-color: #ffffff;
+}
+.cid-vifOiYOawE .mbr-fallback-image.disabled {
+  display: none;
+}
+.cid-vifOiYOawE .mbr-fallback-image {
+  display: block;
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+}
+.cid-vifOiYOawE .card-wrapper {
+  padding-right: 2rem;
+}
+@media (max-width: 992px) {
+  .cid-vifOiYOawE .card {
+    margin-bottom: 2rem!important;
+  }
+  .cid-vifOiYOawE .card-wrapper {
+    padding: 0 1rem;
+  }
+}
+@media (max-width: 767px) {
+  .cid-vifOiYOawE .link-wrap {
+    align-items: center;
+  }
+}
+.cid-vifOiYOawE .image-wrapper img {
+  width: 100%;
+  object-fit: cover;
+}
 .cid-tJ1aul2L8I {
   padding-top: 2rem;
   padding-bottom: 0rem;
